@@ -1,3 +1,4 @@
+{-# LANGUAGE LambdaCase #-}
 module Dibujo where
 
 
@@ -57,4 +58,129 @@ encimar4 d = d ^^^ Rotar d ^^^ r180 d ^^^ r270 d
 -- No confundir con encimar4!
 ciclar :: Dibujo a -> Dibujo a
 ciclar d = cuarteto d (Rotar d) (r180 d) (r270 d)  
+
+instance Functor Dibujo where
+    fmap f (Básica a) = Básica (f a)
+    fmap f (Rotar d) = Rotar (fmap f d)
+    fmap f (Espejar d) = Espejar (fmap f d)
+    fmap f (Rot45 d) = Rot45 (fmap f d)
+    fmap f (Apilar n m d0 d1) = Apilar n m (fmap f d0) (fmap f d1)
+    fmap f (Juntar n m d0 d1) = Juntar n m (fmap f d0) (fmap f d1)
+    fmap f (Encimar d0 d1) = Encimar (fmap f d0) (fmap f d1)
+    {- Las instancias de Functor deben satisfacer los axiomas:
+            fmap id ≡ id
+            fmap (f . g) ≡ fmap f . fmap g
+    
+    Demostración:
+
+    fmap id ≡ id:
+
+        fmap id ≡ id
+    ≡
+        ∀a . fmap id a = a
+
+    Probamos esto por inducción
+
+        Caso base:
+                fmap id (Básica a)
+            =
+                Básica (id a)
+            = 
+                Básica a
+        
+        Casos inductivos:
+        Sea T = Rotar, Espejar, Rot45
+                fmap id (T d)
+            =
+                T (fmap id d)
+            = {Hipótesis inductiva}
+                T d
+
+        Sea T = Apilar n m, Juntar n m, Encimar
+        
+                fmap id (T d0 d1)
+            =
+                T (fmap id d0) (fmap id d1)
+            = {Hipótesis inductiva}
+                T d0 d1
+
+
+    fmap (f . g) ≡ fmap f . fmap g:
+
+        fmap (f . g) ≡ fmap f . fmap g
+    ≡
+        ∀a . fmap (f . g) a = (fmap f . fmap g) a
+
+    Probamos esto por inducción
+
+        Caso base:
+                fmap (f . g) (Básica a)
+            =
+                Básica ((f . g) a)
+            =
+                Básica (f (g a))
+            =
+                fmap f (Básica (g a))
+            =
+                fmap f (fmap g (Básica a))
+            =
+                (fmap f . fmap g) a
+            
+        Casos inductivos:
+        Sea T = Rotar, Espejar, Rot45
+
+                fmap (f . g) (T a)
+            =
+                T (fmap (f . g) a)
+            = {Hipótesis inductiva}
+                T ((fmap f . fmap g) a)
+            =
+                T (fmap f (fmap g a))
+            =
+                fmap f (T (fmap g a))
+            =
+                (fmap f . fmap g) (T a)
+            
+        Sea T = Apilar n m, Juntar n m, Encimar
+
+                fmap (f . g) (T d0 d1)
+            =
+                T (fmap (f . g) d0) (fmap (f . g) d1)
+            = {Hipótesis inductiva}
+                T (fmap f . fmap g) d0)) ((fmap f . fmap g) d1))
+            =
+                T (fmap f (fmap g d0)) (fmap f (fmap g d1))
+            =
+                fmap f (T (fmap g d0) (fmap g d1))
+            =
+                (fmap f . fmap g) (T d0 d1)
+    -}
+
+
+mapDib :: (a -> b) -> Dibujo a -> Dibujo b
+mapDib = fmap
+
+
+-- Ver un a como una figura.
+pureDib :: a -> Dibujo a
+pureDib = Básica
+
+
+-- Estructura general para la semántica (a no asustarse). Ayuda: 
+-- pensar en foldr y las definiciones de intro a la lógica
+sem :: (a -> b) -> (b -> b) -> (b -> b) -> (b -> b) ->
+       (Int -> Int -> b -> b -> b) -> 
+       (Int -> Int -> b -> b -> b) -> 
+       (b -> b -> b) ->
+       Dibujo a -> b
+sem básica rotar espejar rot45 apilar juntar encimar =
+    let f = sem básica rotar espejar rot45 apilar juntar encimar in
+    \case
+        Básica a -> básica a
+        Rotar d -> rotar (f d)
+        Espejar d -> espejar (f d)
+        Rot45 d -> rot45 (f d)
+        Apilar n m d0 d1 -> apilar n m (f d0) (f d1)
+        Juntar n m d0 d1 -> juntar n m (f d0) (f d1)
+        Encimar d0 d1 -> encimar (f d0) (f d1)
 
