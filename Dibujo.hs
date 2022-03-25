@@ -184,3 +184,51 @@ sem básica rotar espejar rot45 apilar juntar encimar =
         Juntar n m d0 d1 -> juntar n m (f d0) (f d1)
         Encimar d0 d1 -> encimar (f d0) (f d1)
 
+
+type Pred a = a -> Bool
+
+-- Dado un predicado sobre básicas, cambiar todas las que satisfacen
+-- el predicado por la figura básica indicada por el segundo argumento.
+cambiar :: Pred a -> a -> Dibujo a -> Dibujo a
+cambiar p a = fmap (\x -> if p x then a else x)
+
+
+-- Alguna básica satisface el predicado.
+anyDib :: Pred a -> Dibujo a -> Bool
+anyDib f = sem f id id id (\_ _ -> (||)) (\_ _ -> (||)) (||)
+
+-- Todas las básicas satisfacen el predicado.
+allDib :: Pred a -> Dibujo a -> Bool
+allDib f = not . anyDib (not . f)
+
+-- Los dos predicados se cumplen para el elemento recibido.
+andP :: Pred a -> Pred a -> Pred a
+andP f g x = f x && g x 
+
+-- Algún predicado se cumple para el elemento recibido.
+ordP :: Pred a -> Pred a -> Pred a
+ordP f g x = f x || g x
+
+-- Describe la figura. Ejemplos: 
+--   desc (const "b") (Basica b) = "b"
+--   desc (const "b") (Rotar (Basica b)) = "rot (b)"
+--   desc (const "b") (Apilar n m (Basica b) (Basica b)) = "api n m (b) (b)"
+-- La descripción de cada constructor son sus tres primeros
+-- símbolos en minúscula, excepto `Rot45` al que se le agrega el `45`.
+desc :: (a -> String) -> Dibujo a -> String
+desc f =
+    sem f ("rot " ++) ("espe " ++) ("rot45 " ++)
+        (\n m s t -> "api " ++ show n ++ " " ++ show m ++ " " ++ s ++ " " ++ t)
+        (\n m s t -> "junt " ++ show n ++ " " ++ show m ++ " " ++ s ++ " " ++ t)
+        (\s t -> "enc " ++ s ++ " " ++ t)
+
+-- Junta todas las figuras básicas de un dibujo.
+basicas :: Dibujo a -> [a]
+basicas (Básica a) = [a]
+basicas (Rotar d) = basicas d
+basicas (Espejar d) = basicas d
+basicas (Rot45 d) = basicas d
+basicas (Apilar _ _ d0 d1) = basicas d0 ++ basicas d1
+basicas (Juntar _ _ d0 d1) = basicas d0 ++ basicas d1
+basicas (Encimar d0 d1) = basicas d0 ++ basicas d1
+
