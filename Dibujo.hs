@@ -222,13 +222,12 @@ desc f =
         (\n m s t -> "junt " ++ show n ++ " " ++ show m ++ " " ++ s ++ " " ++ t)
         (\s t -> "enc " ++ s ++ " " ++ t)
 
+instance Show a => Show (Dibujo a) where
+    show = desc show
+
 -- Junta todas las figuras básicas de un dibujo.
 basicas :: Dibujo a -> [a]
-basicas (Básica a) = [a]
-basicas (Rotar d) = basicas d
-basicas (Espejar d) = basicas d
-basicas (Rot45 d) = basicas d
-basicas (Apilar _ _ d0 d1) = basicas d0 ++ basicas d1
-basicas (Juntar _ _ d0 d1) = basicas d0 ++ basicas d1
-basicas (Encimar d0 d1) = basicas d0 ++ basicas d1
+basicas =
+    sem (:[]) id id id (\_ _ -> (++)) (\_ _ -> (++)) (++)
+
 
