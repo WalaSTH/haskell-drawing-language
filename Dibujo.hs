@@ -234,11 +234,49 @@ basicas =
 
 -- Hay 4 rotaciones seguidas.
 esRot360 :: Pred (Dibujo a)
-esRot360 (Rotar (Rotar (Rotar (Rotar d)))) = True
+esRot360 (Rotar (Rotar (Rotar (Rotar _)))) = True
 esRot360 _ = False
 
 -- Hay 2 espejados seguidos.
 esFlip2 :: Pred (Dibujo a)
-esFlip2 (Espejar (Espejar d)) = True  
+esFlip2 (Espejar (Espejar _)) = True  
 esFlip2 _ = False
+
+
+data Superfluo = RotacionSuperflua | FlipSuperfluo deriving (Show, Eq)
+
+-- Aplica todos los chequeos y acumula todos los errores, y
+-- sólo devuelve la figura si no hubo ningún error.
+check :: Dibujo a -> Either [Superfluo] (Dibujo a)
+check d@(Básica _) = Right d
+check (Rotar (Rotar (Rotar (Rotar d)))) = case check d of
+    Left errores -> Left (RotacionSuperflua : errores)
+    Right _ -> Left [RotacionSuperflua]
+check (Rotar d) = do
+    d' <- check d
+    return $ Rotar d'
+check (Espejar (Espejar d)) = case check d of
+    Left errores -> Left (FlipSuperfluo : errores)
+    Right _ -> Left [FlipSuperfluo]
+check (Espejar d) = do
+    d' <- check d
+    return $ Espejar d'
+check (Rot45 d) = do
+    d' <- check d
+    return $ Rot45 d'
+check d@(Apilar _ _ d0 d1) = case (check d0, check d1) of
+    (Left errores0, Left errores1) -> Left $ errores0 ++ errores1
+    (Right _, Right _) -> Right d
+    (Left errores0, Right _) -> Left errores0
+    (Right _, Left errores1) -> Left errores1
+check d@(Juntar _ _ d0 d1) = case (check d0,check d1) of
+    (Left errores0, Left errores1) -> Left $ errores0 ++ errores1
+    (Right _, Right _) -> Right  d
+    (Left errores0, Right _) -> Left errores0
+    (Right _, Left errores1) -> Left errores1
+check d@(Encimar d0 d1) = case (check d0,check d1) of
+    (Left errores0, Left errores1) -> Left $ errores0 ++ errores1
+    (Right _, Right _) -> Right  d
+    (Left errores0, Right _) -> Left errores0
+    (Right _, Left errores1) -> Left errores1
 
