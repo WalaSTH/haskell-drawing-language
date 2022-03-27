@@ -216,11 +216,13 @@ ordP f g x = f x || g x
 -- La descripción de cada constructor son sus tres primeros
 -- símbolos en minúscula, excepto `Rot45` al que se le agrega el `45`.
 desc :: (a -> String) -> Dibujo a -> String
-desc f =
-    sem f ("rot " ++) ("espe " ++) ("rot45 " ++)
-        (\n m s t -> "api " ++ show n ++ " " ++ show m ++ " " ++ s ++ " " ++ t)
-        (\n m s t -> "junt " ++ show n ++ " " ++ show m ++ " " ++ s ++ " " ++ t)
-        (\s t -> "enc " ++ s ++ " " ++ t)
+desc f = sem f
+    (\x -> "rot (" ++ x ++ ")")
+    (\x -> "espe (" ++ x ++ ")")
+    (\x -> "rot45 (" ++ x ++ ")")
+    (\n m s t -> "api " ++ show n ++ " " ++ show m ++ " (" ++ s ++ ") (" ++ t ++ ")")
+    (\n m s t -> "junt " ++ show n ++ " " ++ show m ++ " (" ++ s ++ ") (" ++ t ++")")
+    (\s t -> "enc (" ++ s ++ ") (" ++ t ++ ")")
 
 instance Show a => Show (Dibujo a) where
     show = desc show
