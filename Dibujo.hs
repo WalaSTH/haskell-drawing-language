@@ -231,3 +231,14 @@ basicas =
     sem (:[]) id id id (\_ _ -> (++)) (\_ _ -> (++)) (++)
 
 
+
+-- Hay 4 rotaciones seguidas.
+esRot360 :: Pred (Dibujo a)
+esRot360 (Rotar (Rotar (Rotar (Rotar d)))) = True
+esRot360 _ = False
+
+-- Hay 2 espejados seguidos.
+esFlip2 :: Pred (Dibujo a)
+esFlip2 (Espejar (Espejar d)) = True  
+esFlip2 _ = False
+
