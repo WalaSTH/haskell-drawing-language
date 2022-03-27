@@ -243,7 +243,7 @@ esFlip2 (Espejar (Espejar _)) = True
 esFlip2 _ = False
 
 
-data Superfluo = RotacionSuperflua | FlipSuperfluo deriving (Show, Eq)
+data Superfluo = RotacionSuperflua | FlipSuperfluo deriving (Show)
 
 -- Aplica todos los chequeos y acumula todos los errores, y
 -- sólo devuelve la figura si no hubo ningún error.
