@@ -67,4 +67,4 @@ transf f d (xs,ys) a b c  = translate (fst a') (snd a') .
 
 -- Claramente esto sólo funciona para el ejemplo!
 interp :: Output () -> Output (Dibujo ())
-interp f () = f ()
+interp f _ = f ()

@@ -4,7 +4,7 @@ import Interp
 
 type Basica = ()
 ejemplo :: Dibujo Basica
-ejemplo = ()
+ejemplo = Básica ()
 
 interpBas :: Output Basica
 interpBas () = trian1
