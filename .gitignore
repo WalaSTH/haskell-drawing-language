@@ -50,3 +50,6 @@ Thumbs.db
 
 # Archivo para que gloss ande en windows
 glut32.dll
+
+# Configuración de vscode
+.vscode/
