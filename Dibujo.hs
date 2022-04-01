@@ -160,7 +160,6 @@ instance Functor Dibujo where
 mapDib :: (a -> b) -> Dibujo a -> Dibujo b
 mapDib = fmap
 
-
 -- Ver un a como una figura.
 pureDib :: a -> Dibujo a
 pureDib = Básica
@@ -250,31 +249,32 @@ data Superfluo = RotacionSuperflua | FlipSuperfluo deriving (Show)
 -- Aplica todos los chequeos y acumula todos los errores, y
 -- sólo devuelve la figura si no hubo ningún error.
 check :: Dibujo a -> Either [Superfluo] (Dibujo a)
-check d@(Básica _) = Right d
-check (Rotar (Rotar (Rotar (Rotar d)))) = case check d of
-    Left errores -> Left (RotacionSuperflua : errores)
-    Right _ -> Left [RotacionSuperflua]
-check d@(Rotar d') = check1 d d'
-check (Espejar (Espejar d)) = case check d of
-    Left errores -> Left (FlipSuperfluo : errores)
-    Right _ -> Left [FlipSuperfluo]
-check d@(Espejar d') = check1 d d'
-check d@(Rot45 d') = check1 d d'
-check d@(Apilar _ _ d0 d1) = check2 d d0 d1
-check d@(Juntar _ _ d0 d1) = check2 d d0 d1
-check d@(Encimar d0 d1) = check2 d d0 d1
+check = \case
+    d@(Básica _) -> Right d
+    (Rotar (Rotar (Rotar (Rotar d)))) -> case check d of
+        Left errores -> Left (RotacionSuperflua : errores)
+        Right _ -> Left [RotacionSuperflua]
+    d@(Rotar d') -> check1 d d'
+    (Espejar (Espejar d)) -> case check d of
+        Left errores -> Left (FlipSuperfluo : errores)
+        Right _ -> Left [FlipSuperfluo]
+    d@(Espejar d') -> check1 d d'
+    d@(Rot45 d') -> check1 d d'
+    d@(Apilar _ _ d0 d1) -> check2 d d0 d1
+    d@(Juntar _ _ d0 d1) -> check2 d d0 d1
+    d@(Encimar d0 d1) -> check2 d d0 d1
+    where
+        -- Hace un chequeo de d', en caso de errores los devuelve, y si no devuelve d
+        check1 :: Dibujo a -> Dibujo b -> Either [Superfluo] (Dibujo a)
+        check1 d d' = case check d' of
+            Left errores -> Left errores
+            Right _ -> Right d
 
--- Hace un chequeo de d', en caso de errores los devuelve, y si no devuelve d
-check1 :: Dibujo a -> Dibujo b -> Either [Superfluo] (Dibujo a)
-check1 d d' = case check d' of
-    Left errores -> Left errores
-    Right _ -> Right d
-
--- Hace un chequeo de d0 y d1, en caso de errores los devuelve, y si no devuelve d
-check2 :: Dibujo a -> Dibujo b -> Dibujo c -> Either [Superfluo] (Dibujo a)
-check2 d d0 d1 = case (check d0, check d1) of
-    (Left errores0, Left errores1) -> Left $ errores0 ++ errores1
-    (Left errores, _) -> Left errores
-    (_, Left errores) -> Left errores
-    _ -> Right d
+        -- Hace un chequeo de d0 y d1, en caso de errores los devuelve, y si no devuelve d
+        check2 :: Dibujo a -> Dibujo b -> Dibujo c -> Either [Superfluo] (Dibujo a)
+        check2 d d0 d1 = case (check d0, check d1) of
+            (Left errores0, Left errores1) -> Left $ errores0 ++ errores1
+            (Left errores, _) -> Left errores
+            (_, Left errores) -> Left errores
+            _ -> Right d
 
