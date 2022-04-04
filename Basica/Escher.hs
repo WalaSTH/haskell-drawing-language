@@ -37,11 +37,15 @@ dibujoT p = p' ^^^ r270 p'
 
 
 -- Por suerte no tenemos que poner el tipo!
-noneto p q r s t u v w x =  Apilar 1 2 (Juntar 1 2 p (Juntar 1 1 q r)) 
-                           (Apilar 1 1 (Juntar 1 2 s (Juntar 1 1 t u))
-                                       (Juntar 1 2 v (Juntar 1 1 w x)))          
+noneto p q r s t u v w x = 
+    Apilar 1 2 (Juntar 1 2 p (Juntar 1 1 q r)) $
+        Apilar 1 1 (Juntar 1 2 s (Juntar 1 1 t u)) $
+            Juntar 1 2 v (Juntar 1 1 w x)  
 
 -- El dibujo de Escher:
 escher :: Int -> Escher -> Dibujo Escher
 escher = undefined
+
+
+
 
