@@ -65,7 +65,6 @@ transf f d (xs,ys) a b c  = translate (fst a') (snd a') .
           a' = a V.+ half (b V.+ c)
 
 
--- Claramente esto sólo funciona para el ejemplo!
 
 interp :: Output a -> Output (Dibujo a)
 interp f =
@@ -87,7 +86,6 @@ interp f =
         interpJuntar n m g0 g1 x w h = pictures [g0 x w' h, g1 (x V.+ w') (r' V.* w) h]
             where
                 r' = fromIntegral n / fromIntegral (m+n)
-                r =  fromIntegral m / fromIntegral (m+n)
                 w' = r' V.* w
         interpEncimar :: FloatingPic -> FloatingPic -> FloatingPic
         interpEncimar g0 g1 x w h = pictures [g0 x w h, g1 x w h]
