@@ -6,19 +6,19 @@ import Interp
 
 
 
-type Escher = FloatingPic
+data Escher = Blanco | Pez
 
 
 -- Esquina con nivel de detalle en base a la figura p.
 esquina :: Int -> Dibujo Escher -> Dibujo Escher
-esquina 0 _ = Básica vacía
+esquina 0 _ = Básica Blanco
 esquina n p
     | n > 0 =  cuarteto (esquina (n-1) p) (lado (n-1) p) (Rotar $ lado (n-1) p) (dibujoU p)
     | otherwise = error "esquina: nivel de detalle negativo"
 
 -- Lado con nivel de detalle.
 lado :: Int -> Dibujo Escher -> Dibujo Escher
-lado 0 _ = Básica vacía
+lado 0 _ = Básica Blanco
 lado n p
     | n > 0 = cuarteto (lado (n-1) p) (lado (n-1) p) (Rotar $ dibujoT p) (dibujoT p)
     | otherwise  = error "lado: nivel de detalle no válido"
@@ -53,17 +53,21 @@ noneto
 escher :: Int -> Escher -> Dibujo Escher
 escher n f = noneto p q r s t u v w x  
             where
-                p = esquina n (Básica f)
-                q = lado n (Básica f)
-                r = Rotar $ Rotar $ Rotar (esquina n (Básica f))
+                p = esquina n $ Básica f
+                q = lado n $ Básica f
+                r = r270 $ esquina n $ Básica f
                 s = Rotar q
                 t = Básica f
-                u = Rotar $ Rotar (s)
+                u = r180 s
                 v = Rotar p
-                w = Rotar $ Rotar  q
-                x = Rotar $ Rotar p
+                w = r180  q
+                x = r180 p
 
-fish :: FloatingPic 
-fish = trian2
+pez :: FloatingPic 
+pez = trian2
+
+interpEscher :: Escher -> FloatingPic 
+interpEscher Blanco = vacía
+interpEscher Pez = pez
 
 
