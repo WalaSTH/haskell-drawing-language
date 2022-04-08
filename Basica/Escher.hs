@@ -51,17 +51,21 @@ noneto
 
 -- El dibujo de Escher:
 escher :: Int -> Escher -> Dibujo Escher
-escher n f = noneto p q r s t u v w x  
-            where
-                p = esquina n $ Básica f
-                q = lado n $ Básica f
-                r = r270 $ esquina n $ Básica f
-                s = Rotar q
-                t = Básica f
-                u = r180 s
-                v = Rotar p
-                w = r180  q
-                x = r180 p
+escher n f =
+    noneto
+        p q r
+        s t u
+        v w x  
+    where
+        p = esquina n $ Básica f
+        q = lado n $ Básica f
+        r = r270 p
+        s = Rotar q
+        t = dibujoU $ Básica f
+        u = r270 q
+        v = Rotar p
+        w = r180 q
+        x = r180 p
 
 pez :: FloatingPic 
 pez = trian2
