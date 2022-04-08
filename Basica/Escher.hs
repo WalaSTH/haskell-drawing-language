@@ -44,7 +44,17 @@ noneto p q r s t u v w x =
 
 -- El dibujo de Escher:
 escher :: Int -> Escher -> Dibujo Escher
-escher = undefined
+escher n f = noneto p q r s t u v w x  
+            where
+                p = esquina n (Básica f)
+                q = lado n (Básica f)
+                r = Rotar $ Rotar $ Rotar (esquina n (Básica f))
+                s = Rotar q
+                t = Básica f
+                u = Rotar $ Rotar (s)
+                v = Rotar p
+                w = Rotar $ Rotar  q
+                x = Rotar $ Rotar p
 
 
 
