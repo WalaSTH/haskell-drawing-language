@@ -5,19 +5,19 @@ import Interp
 import qualified Basica.Escher as E
 
 data Conf a = Conf {
-    basic :: Output a
-  , fig  :: Dibujo a
-  , width :: Float
-  , height :: Float
-  }
+    basic :: Output a,
+    fig  :: Dibujo a,
+    width :: Float,
+    height :: Float
+}
 
-ej :: Float -> Float -> Conf E.Escher
-ej x y = Conf {
-                basic = E.interpEscher 
-              , fig = E.escher 5 E.Pez
-              , width = x
-              , height = y
-              }
+escherConf :: Float -> Float -> Conf E.Escher
+escherConf x y = Conf {
+    basic = E.interpEscher ,
+    fig = E.escher 5 E.Pez,
+    width = x,
+    height = y
+}
 
 -- Dada una computación que construye una configuración, mostramos por
 -- pantalla la figura de la misma de acuerdo a la interpretación para
@@ -36,4 +36,4 @@ initial cf = do
 
 
 main :: IO ()
-main = initial $ return (ej 400 400)
+main = initial $ return (escherConf 400 400)
