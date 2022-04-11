@@ -1,10 +1,8 @@
 module Main where
 import Graphics.Gloss
-import Graphics.Gloss.Interface.IO.Display
-import Graphics.UI.GLUT.Begin
 import Dibujo
 import Interp
-import qualified Basica.Ejemplo as E
+import qualified Basica.Escher as E
 
 data Conf a = Conf {
     basic :: Output a
@@ -13,9 +11,10 @@ data Conf a = Conf {
   , height :: Float
   }
 
+ej :: Float -> Float -> Conf E.Escher
 ej x y = Conf {
-                basic = E.interpBas
-              , fig = E.ejemplo
+                basic = E.interpEscher 
+              , fig = E.escher 5 E.Pez
               , width = x
               , height = y
               }
@@ -24,13 +23,17 @@ ej x y = Conf {
 -- pantalla la figura de la misma de acuerdo a la interpretación para
 -- las figuras básicas. Permitimos una computación para poder leer
 -- archivos, tomar argumentos, etc.
-initial :: IO (Conf ()) -> IO ()
-initial cf = cf >>= \cfg ->
-                  let x  = width cfg
-                      y  = height cfg
-                  in display win white . withGrid $ interp (basic cfg) (fig cfg) (0,0) (x,0) (0,y)
+initial :: IO (Conf a) -> IO ()
+initial cf = do
+    cfg <- cf
+    let x  = width cfg
+        y  = height cfg
+        win = InWindow "Nice Window" (ceiling x, ceiling y) (0, 0)
+    display win white $ interp (basic cfg) (fig cfg) (-x/2, -y/2) (x,0) (0,y)
+{-     display win white . withGrid $ interp (basic cfg) (fig cfg) (-x/2, -y/2) (x,0) (0,y)
   where withGrid p = pictures [p, color grey $ grid 10 (0,0) 100 10]
-        grey = makeColorI 120 120 120 120
+        grey = makeColorI 120 120 120 120 -}
 
-win = InWindow "Nice Window" (200, 200) (0, 0)
-main = initial $ return (ej 100 100)
+
+main :: IO ()
+main = initial $ return (ej 400 400)
