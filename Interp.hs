@@ -15,7 +15,8 @@ zero = (0,0)
 half :: Vector -> Vector
 half = (0.5 V.*)
 
--- comprender esta función es un buen ejericio.
+-- Infinitas lineas paralelas horizontales
+-- Desde (x, y) para arriba con un largo de mag
 hlines :: Vector -> Float -> Float -> [Picture]
 hlines (x,y) mag sep = map (hline . (*sep)) [0..]
     where hline h = line [(x,y+h),(x+mag,y+h)] 
