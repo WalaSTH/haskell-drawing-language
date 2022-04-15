@@ -246,13 +246,13 @@ esRot360 (Básica a)  = False
 
 -- Hay 2 espejados seguidos.
 esFlip2 :: Pred (Dibujo a)
-esFlip2 Espejar (Espejar a) = True
-esFlip2 (Apilar _ _ a b) = esRot360 a || esRot360 b
-esFlip2 (Juntar _ _ a b) = esRot360 a || esRot360 b
-esFlip2 (Encimar a b) = esRot360 a || esRot360 b
-esFlip2 (Espejar a) = esRot360 a
-esFlip2 (Rotar a) = esRot360 a
-esFlip2 (Rot45 a) = esRot360 a
+esFlip2 (Espejar (Espejar a)) = True
+esFlip2 (Apilar _ _ a b) = esFlip2 a || esFlip2 b
+esFlip2 (Juntar _ _ a b) = esFlip2 a || esFlip2 b
+esFlip2 (Encimar a b) = esFlip2 a || esFlip2 b
+esFlip2 (Espejar a) = esFlip2 a
+esFlip2 (Rotar a) = esFlip2 a
+esFlip2 (Rot45 a) = esFlip2 a
 esFlip2 (Básica a)  = False
 
 
