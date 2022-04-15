@@ -1,5 +1,6 @@
 module Basica.Ejemplo where
 import Dibujo
+import FloatingPic
 import Interp
 
 type Basica = ()

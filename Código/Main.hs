@@ -1,6 +1,7 @@
 module Main where
 import Graphics.Gloss
 import Dibujo
+import FloatingPic
 import Interp
 import qualified Basica.Escher as E
 

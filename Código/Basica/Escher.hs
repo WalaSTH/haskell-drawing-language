@@ -1,6 +1,7 @@
 module Basica.Escher where
 
 import Dibujo
+import FloatingPic
 import Interp
 
 
