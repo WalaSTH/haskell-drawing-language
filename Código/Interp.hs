@@ -1,5 +1,5 @@
 module Interp where
-import Graphics.Gloss
+import Graphics.Gloss hiding (color)
 import qualified Graphics.Gloss.Data.Point.Arithmetic as V
 
 import Dibujo
@@ -32,9 +32,16 @@ interp f =
         interpEncimar g0 g1 x w h = pictures [g0 x w h, g1 x w h]
 
 
+-- Configuración de la interpretación
 data Conf a = Conf {
+    name :: String,
     basic :: Output a,
     fig  :: Dibujo a,
     width :: Float,
-    height :: Float
+    height :: Float,
+    color :: Color
 }
+
+interpConf :: Conf a -> Picture 
+interpConf (Conf _ b f x y _) =
+    interp b f (-x/2, -y/2) (x,0) (0,y)

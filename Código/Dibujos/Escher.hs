@@ -3,6 +3,7 @@ module Dibujos.Escher where
 import Dibujo
 import FloatingPic
 import Interp
+import Graphics.Gloss hiding (color)
 
 
 
@@ -75,3 +76,12 @@ interpEscher Blanco = vacía
 interpEscher Pez = pez
 
 
+escherConf :: Float -> Float -> Conf Escher
+escherConf x y = Conf {
+    name = "Escher",
+    basic = interpEscher ,
+    fig = escher 5 Pez,
+    width = x,
+    height = y,
+    color = white
+}

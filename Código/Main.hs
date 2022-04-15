@@ -1,33 +1,22 @@
 module Main where
-import Graphics.Gloss
-import Dibujo
-import FloatingPic
+import Graphics.Gloss hiding (color)
 import Interp
-import qualified Dibujos.Escher as E
+import Dibujos.Escher
 
-escherConf :: Float -> Float -> Conf E.Escher
-escherConf x y = Conf {
-    basic = E.interpEscher ,
-    fig = E.escher 5 E.Pez,
-    width = x,
-    height = y
-}
 
 -- Dada una computación que construye una configuración, mostramos por
 -- pantalla la figura de la misma de acuerdo a la interpretación para
 -- las figuras básicas. Permitimos una computación para poder leer
 -- archivos, tomar argumentos, etc.
-initial :: IO (Conf a) -> IO ()
-initial cf = do
-    cfg <- cf
+initial :: Conf a -> IO ()
+initial cfg = do
     let x  = width cfg
         y  = height cfg
-        win = InWindow "Nice Window" (ceiling x, ceiling y) (0, 0)
-    display win white $ interp (basic cfg) (fig cfg) (-x/2, -y/2) (x,0) (0,y)
-{-     display win white . withGrid $ interp (basic cfg) (fig cfg) (-x/2, -y/2) (x,0) (0,y)
-  where withGrid p = pictures [p, color grey $ grid 10 (0,0) 100 10]
-        grey = makeColorI 120 120 120 120 -}
+        c = color cfg
+        n = name cfg
+        win = InWindow n (ceiling x, ceiling y) (0, 0)
+    display win c $ interpConf cfg
 
 
 main :: IO ()
-main = initial $ return (escherConf 400 400)
+main = initial $ escherConf 400 400

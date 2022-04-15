@@ -1,4 +1,5 @@
 module Dibujos.Ejemplo where
+import Graphics.Gloss hiding (color)
 import Dibujo
 import FloatingPic
 import Interp
@@ -9,3 +10,13 @@ ejemplo = Básica ()
 
 interpBas :: Output Basica
 interpBas () = trian1
+
+ejemploConf :: Float -> Float -> Conf Basica
+ejemploConf x y = Conf {
+    name = "Ejemplo",
+    basic = interpBas,
+    fig = ejemplo,
+    width = x,
+    height = y,
+    color = white
+}
