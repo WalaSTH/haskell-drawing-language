@@ -234,9 +234,15 @@ basicas =
 
 
 -- Hay 4 rotaciones seguidas.
-esRot360 :: Pred (Dibujo a)
-esRot360 (Rotar (Rotar (Rotar (Rotar _)))) = True
-esRot360 _ = False
+esRot360 :: Pred (Dibujo a) --Dibujo a -> Bool
+esRot360 (Rotar (Rotar (Rotar (Rotar a)))) = True
+esRot360 (Apilar _ _ a b) = esRot360 a || esRot360 b
+esRot360 (Juntar _ _ a b) = esRot360 a || esRot360 b
+esRot360 (Encimar a b) = esRot360 a || esRot360 b
+esRot360 (Espejar a) = esRot360 a
+esRot360 (Rotar a) = esRot360 a
+esRot360 (Rot45 a) = esRot360 a
+esRot360 (Básica a)  = False
 
 -- Hay 2 espejados seguidos.
 esFlip2 :: Pred (Dibujo a)
