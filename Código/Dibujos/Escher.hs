@@ -1,4 +1,4 @@
-module Basica.Escher where
+module Dibujos.Escher where
 
 import Dibujo
 import FloatingPic

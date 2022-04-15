@@ -1,4 +1,4 @@
-module Basica.Ejemplo where
+module Dibujos.Ejemplo where
 import Dibujo
 import FloatingPic
 import Interp

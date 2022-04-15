@@ -3,7 +3,7 @@ import Graphics.Gloss
 import Dibujo
 import FloatingPic
 import Interp
-import qualified Basica.Escher as E
+import qualified Dibujos.Escher as E
 
 data Conf a = Conf {
     basic :: Output a,
