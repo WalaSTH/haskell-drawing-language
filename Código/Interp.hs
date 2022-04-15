@@ -30,3 +30,11 @@ interp f =
                 w' = r V.* w
         interpEncimar :: FloatingPic -> FloatingPic -> FloatingPic
         interpEncimar g0 g1 x w h = pictures [g0 x w h, g1 x w h]
+
+
+data Conf a = Conf {
+    basic :: Output a,
+    fig  :: Dibujo a,
+    width :: Float,
+    height :: Float
+}

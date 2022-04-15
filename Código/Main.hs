@@ -5,13 +5,6 @@ import FloatingPic
 import Interp
 import qualified Dibujos.Escher as E
 
-data Conf a = Conf {
-    basic :: Output a,
-    fig  :: Dibujo a,
-    width :: Float,
-    height :: Float
-}
-
 escherConf :: Float -> Float -> Conf E.Escher
 escherConf x y = Conf {
     basic = E.interpEscher ,
