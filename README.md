@@ -42,7 +42,7 @@ r180 = Rotar . Rotar
 
     En el repositorio ya venían los archivos necesarios, y en el enunciado se indicaba que tenia que ir en cada archivo.
 
-    A continuación hay una tabla con cada modulo (cada archivo en un modulo en haskell) que venia y una explicación de su responsabilidad:
+    A continuación hay una tabla con cada módulo (cada archivo en un módulo en haskell) que venia y una explicación de su responsabilidad:
 
 | Modulo           | Responsabilidad                                                                                                                                                                                                                                                                                                       |
 | ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -55,6 +55,21 @@ r180 = Rotar . Rotar
 ## Nuestra modularización
 
     Nosotros primero hicimos todo usando la modularización como venía, pero luego la modificamos un poco.
+
+    Luego de nuestras modificaciones los módulos y sus responsabilidades quedaron así:
+
+| Modulo           | Responsabilidad                                                                                                                                                   |
+| ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Dibujo`         | Definir la estructura de datos `Dibujo` y sus funciones relacionadas.                                                                                             |
+| `FloatingPic`    | Definir el tipo `FloatingPic` y algunos valores y funciones para trabajar con `FloatingPic` y `Graphics.Gloss.Picture`                                            |
+| `Interp`         | Definir una interpretación de los `Dibujo`s, para poder obtener un`FloatingPic` a partir de un `Dibujo`, y para poder graficar un `Dibujo`                        |
+| `Main`           | Graficar el dibujo de Escher                                                                                                                                      |
+| `Basica.Ejemplo` | Un ejemplo básico de un triangulo.                                                                                                                                |
+| `Basica.Escher`  | La definición de la figura de escher.<br/>Lo mas importante acá es la función `escher`, que es la queda la estructura `Dibujo` para graficar el dibujo de escher. |
+
+    A varias cosas las movimos de módulo, y también a algunas cosas las cambiamos de nombre para darles un nombre que nos parecía mejor.
+
+    Otra cosa que hicimos fue mover todo lo que es el código a la carpeta `Código`.
 
 ## Definición del lenguaje
 
