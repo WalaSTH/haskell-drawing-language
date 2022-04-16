@@ -6,6 +6,8 @@ import Dibujo
 import FloatingPic
 
 
+-- Interpretación de un dibujo
+-- formulas sacadas del enunciado
 interp :: Output a -> Output (Dibujo a)
 interp f =
     sem f interpRotar interpEspejar interpRot45 interpApilar interpJuntar interpEncimar

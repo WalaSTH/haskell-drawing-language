@@ -37,7 +37,6 @@ dibujoT p = Encimar p (p' ^^^ r270 p')
         p' = Rot45 p
 
 
--- Por suerte no tenemos que poner el tipo!
 noneto ::
     Dibujo a -> Dibujo a -> Dibujo a -> Dibujo a -> Dibujo a
     -> Dibujo a -> Dibujo a -> Dibujo a -> Dibujo a
@@ -68,6 +67,7 @@ escher n f =
         w = r180 q
         x = r180 p
 
+-- Figura básica para usar en el dibujo de Escher
 pez :: FloatingPic 
 pez = trian2
 
@@ -75,7 +75,7 @@ interpEscher :: Escher -> FloatingPic
 interpEscher Blanco = vacía
 interpEscher Pez = pez
 
-
+-- Configuración para interpretar el dibujo de Escher
 escherConf :: Float -> Float -> Conf Escher
 escherConf x y = Conf {
     name = "Escher",

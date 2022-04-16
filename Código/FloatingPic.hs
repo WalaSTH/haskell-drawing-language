@@ -58,6 +58,7 @@ fShape a b c = line . map (a V.+) $ [ zero,uX, p13, p33, p33 V.+ uY , p13 V.+ uY
 vacía :: FloatingPic
 vacía _ _ _ = blank
 
+
 -- Dada una función que produce una figura a partir de un a y un vector
 -- producimos una figura flotante aplicando las transformaciones
 -- necesarias. Útil si queremos usar figuras que vienen de archivos bmp.
