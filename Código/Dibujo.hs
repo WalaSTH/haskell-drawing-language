@@ -233,30 +233,29 @@ basicas =
 
 
 
--- Hay 4 rotaciones seguidas.
-esRot360 :: Pred (Dibujo a) --Dibujo a -> Bool
+-- El dibujo es 4 rotaciones seguidas.
+esRot360 :: Pred (Dibujo a)
 esRot360 (Rotar (Rotar (Rotar (Rotar a)))) = True
-esRot360 (Apilar _ _ a b) = esRot360 a || esRot360 b
-esRot360 (Juntar _ _ a b) = esRot360 a || esRot360 b
-esRot360 (Encimar a b) = esRot360 a || esRot360 b
-esRot360 (Espejar a) = esRot360 a
-esRot360 (Rotar a) = esRot360 a
-esRot360 (Rot45 a) = esRot360 a
-esRot360 (Básica a)  = False
+esRot360 _ = False
 
--- Hay 2 espejados seguidos.
+-- El dibujo es 2 espejados seguidos.
 esFlip2 :: Pred (Dibujo a)
 esFlip2 (Espejar (Espejar a)) = True
-esFlip2 (Apilar _ _ a b) = esFlip2 a || esFlip2 b
-esFlip2 (Juntar _ _ a b) = esFlip2 a || esFlip2 b
-esFlip2 (Encimar a b) = esFlip2 a || esFlip2 b
-esFlip2 (Espejar a) = esFlip2 a
-esFlip2 (Rotar a) = esFlip2 a
-esFlip2 (Rot45 a) = esFlip2 a
-esFlip2 (Básica a)  = False
+esFlip2 _ = False
 
+-- El dibujo tiene en algún lado 4 rotaciones seguidas
+tieneRot360 :: Pred (Dibujo a)
+tieneRot360 d = case check d of
+    Left xs -> RotacionSuperflua `elem` xs
+    _ -> False
 
-data Superfluo = RotacionSuperflua | FlipSuperfluo deriving (Show)
+-- EL dibujo tiene en algún lado 2 espejados seguidos
+tieneFlip2 :: Pred (Dibujo a)
+tieneFlip2 d = case check d of
+    Left xs -> FlipSuperfluo `elem` xs
+    _ -> False
+
+data Superfluo = RotacionSuperflua | FlipSuperfluo deriving (Eq, Show)
 
 -- Aplica todos los chequeos y acumula todos los errores, y
 -- sólo devuelve la figura si no hubo ningún error.
