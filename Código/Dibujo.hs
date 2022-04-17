@@ -235,12 +235,12 @@ basicas =
 
 -- El dibujo es 4 rotaciones seguidas.
 esRot360 :: Pred (Dibujo a)
-esRot360 (Rotar (Rotar (Rotar (Rotar a)))) = True
+esRot360 (Rotar (Rotar (Rotar (Rotar _)))) = True
 esRot360 _ = False
 
 -- El dibujo es 2 espejados seguidos.
 esFlip2 :: Pred (Dibujo a)
-esFlip2 (Espejar (Espejar a)) = True
+esFlip2 (Espejar (Espejar _)) = True
 esFlip2 _ = False
 
 -- El dibujo tiene en algún lado 4 rotaciones seguidas
