@@ -12,7 +12,7 @@ interpBas :: Output Basica
 interpBas () = trian1
 
 ejemploConf :: Float -> Float -> Conf Basica
-ejemploConf x y = Conf {
+ejemploConf x y = Dis {
     name = "Ejemplo",
     basic = interpBas,
     fig = ejemplo,

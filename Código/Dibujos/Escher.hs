@@ -77,7 +77,7 @@ interpEscher Pez = pez
 
 -- Configuración para interpretar el dibujo de Escher
 escherConf :: Float -> Float -> Conf Escher
-escherConf x y = Conf {
+escherConf x y = Dis {
     name = "Escher",
     basic = interpEscher ,
     fig = escher 5 Pez,

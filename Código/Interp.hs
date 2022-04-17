@@ -35,18 +35,42 @@ interp f =
 
 
 -- Configuración de la interpretación
-data Conf a = Conf {
-    name :: String,
-    basic :: Output a,
-    fig  :: Dibujo a,
-    width :: Float,
-    height :: Float,
-    color :: Color
-}
+data Conf a = Dis {
+        name :: String,
+        basic :: Output a,
+        fig  :: Dibujo a,
+        width :: Float,
+        height :: Float,
+        color :: Color
+    }   
+    | Anim {
+        name :: String,
+        basic :: Output a,
+        anim  :: Float -> Dibujo a,
+        width :: Float,
+        height :: Float,
+        color :: Color
+    }
 
-interpConf :: Conf a -> Picture 
-interpConf (Conf _ b f x y _) =
+
+isDis :: Conf a -> Bool
+isDis Dis{} = True
+isDis _ = False
+
+isAnim :: Conf a -> Bool
+isAnim Anim{} = True
+isAnim _ = False
+
+
+interpDis :: Conf a -> Picture 
+interpDis (Dis _ b f x y _) =
     interp b f (-x/2, -y/2) (x,0) (0,y)
+interpDis _ = error "interpDis: no es una configuración de dibujo"
+
+interpAnim :: Conf a -> Float -> Picture
+interpAnim (Anim _ b a x y _) t =
+    interp b (a t) (-x/2, -y/2) (x,0) (0,y)
+interpAnim _ _ = error "interpAnim: no es una configuración de animación"
 
 
 -- Dada una computación que construye una configuración, mostramos por
@@ -60,4 +84,7 @@ initial cfg = do
         c = color cfg
         n = name cfg
         win = InWindow n (ceiling x, ceiling y) (0, 0)
-    display win c $ interpConf cfg
+    if isDis cfg then
+        display win c (interpDis cfg)
+    else
+        animate win c (interpAnim cfg)
