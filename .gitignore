@@ -58,3 +58,4 @@ glut32.dll
 # Archivos generados por ghc
 *.hi
 *.o
+Main
