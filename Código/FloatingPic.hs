@@ -1,5 +1,5 @@
 module FloatingPic where 
-import Graphics.Gloss hiding (color)
+import Graphics.Gloss
 import Graphics.Gloss.Data.Vector
 import Graphics.Gloss.Geometry.Angle
 import qualified Graphics.Gloss.Data.Point.Arithmetic as V

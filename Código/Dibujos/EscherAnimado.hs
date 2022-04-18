@@ -1,7 +1,7 @@
 module Dibujos.EscherAnimado where
 
 import Data.Fixed
-import Graphics.Gloss hiding (color)
+import Graphics.Gloss
 
 import Dibujos.Escher
 import Dibujo
@@ -19,5 +19,5 @@ escherAnimadoConf x y = Anim {
     anim = escherAnimado,
     width = x,
     height = y,
-    color = white
+    col = white
 }

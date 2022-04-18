@@ -1,5 +1,5 @@
 module Interp where
-import Graphics.Gloss hiding (color)
+import Graphics.Gloss
 import qualified Graphics.Gloss.Data.Point.Arithmetic as V
 
 import Dibujo
@@ -41,7 +41,7 @@ data Conf a = Dis {
         fig  :: Dibujo a,
         width :: Float,
         height :: Float,
-        color :: Color
+        col :: Color
     }   
     | Anim {
         name :: String,
@@ -49,7 +49,7 @@ data Conf a = Dis {
         anim  :: Float -> Dibujo a,
         width :: Float,
         height :: Float,
-        color :: Color
+        col :: Color
     }
 
 
@@ -81,7 +81,7 @@ initial :: Conf a -> IO ()
 initial cfg = do
     let x  = width cfg
         y  = height cfg
-        c = color cfg
+        c = col cfg
         n = name cfg
         win = InWindow n (ceiling x, ceiling y) (0, 0)
     if isDis cfg then

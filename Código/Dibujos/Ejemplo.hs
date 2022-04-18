@@ -18,5 +18,5 @@ ejemploConf x y = Dis {
     fig = ejemplo,
     width = x,
     height = y,
-    color = white
+    col = white
 }
