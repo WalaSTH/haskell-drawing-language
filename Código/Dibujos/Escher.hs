@@ -6,10 +6,10 @@ module Dibujos.Escher (
     white
 ) where
 
-import Dibujo
-import FloatingPic
-import Interp
-import Graphics.Gloss
+import Dibujo (r180, r270, (^^^), encimar4, cuarteto, Dibujo(..))
+import FloatingPic (vacía, trian2, FloatingPic)
+import Interp (Conf(..))
+import Graphics.Gloss ( white )
 
 
 
