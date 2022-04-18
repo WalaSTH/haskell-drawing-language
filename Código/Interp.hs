@@ -1,9 +1,18 @@
-module Interp where
+module Interp (
+    interp,
+    Conf(..),
+    isDis, isAnim,
+    interpDis, interpAnim,
+    initial
+) where
+    
 import Graphics.Gloss
+    (Picture, pictures, animate, display, Display(InWindow), Color)
+
 import qualified Graphics.Gloss.Data.Point.Arithmetic as V
 
-import Dibujo
-import FloatingPic
+import Dibujo (sem, Dibujo)
+import FloatingPic (half, FloatingPic, Output)
 
 
 -- Interpretación de un dibujo

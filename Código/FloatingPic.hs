@@ -1,7 +1,18 @@
-module FloatingPic where 
-import Graphics.Gloss
-import Graphics.Gloss.Data.Vector
-import Graphics.Gloss.Geometry.Angle
+module FloatingPic (
+    FloatingPic, Output,
+    zero, half,
+    hlines, grid,
+    trian1, trian2, trianD, rectan,
+    simple, fShape, vacía,
+    transf
+) where
+    
+import Graphics.Gloss(
+    Vector, Picture, blank, line,
+    pictures, rotate, scale, translate)
+import Graphics.Gloss.Data.Vector (argV, magV)
+import Graphics.Gloss.Geometry.Angle (radToDeg)
+
 import qualified Graphics.Gloss.Data.Point.Arithmetic as V
 
 

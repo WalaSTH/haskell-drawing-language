@@ -1,8 +1,16 @@
-module Dibujos.Ejemplo where
-import Graphics.Gloss hiding (color)
-import Dibujo
-import FloatingPic
-import Interp
+module Dibujos.Ejemplo (
+    Basica,
+    ejemplo,
+    interpBas,
+    ejemploConf,
+    white
+) where
+    
+import Graphics.Gloss ( white )
+
+import Dibujo (Dibujo(Básica))
+import FloatingPic (trian1, Output)
+import Interp (Conf(..))
 
 type Basica = ()
 ejemplo :: Dibujo Basica

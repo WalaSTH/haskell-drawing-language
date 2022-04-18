@@ -1,11 +1,17 @@
-module Dibujos.EscherAnimado where
+module Dibujos.EscherAnimado (
+    Escher(..),
+    interpEscher,
+    escherAnimado,
+    escherAnimadoConf,
+    white
+) where
 
-import Data.Fixed
-import Graphics.Gloss
+import Data.Fixed (mod')
+import Graphics.Gloss (white)
 
-import Dibujos.Escher
-import Dibujo
-import Interp
+import Dibujo (Dibujo)
+import Dibujos.Escher (Escher(..), escher, interpEscher)
+import Interp (Conf(..))
 
 
 

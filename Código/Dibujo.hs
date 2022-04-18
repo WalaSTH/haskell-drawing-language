@@ -1,5 +1,21 @@
 {-# LANGUAGE LambdaCase #-}
-module Dibujo where
+module Dibujo (
+    Dibujo(..),
+    r180, r270,
+    (.-.), (///), (^^^),
+    cuarteto, encimar4, ciclar,
+    pureDib,
+    sem,
+    Pred,
+    cambiar,
+    anyDib, allDib,
+    andP, ordP,
+    desc,
+    basicas,
+    esRot360, esFlip2, tieneRot360, tieneFlip2,
+    Superfluo(..),
+    check
+) where
 
 
 {-
@@ -20,12 +36,6 @@ data Dibujo a =
     | Juntar Int Int (Dibujo a) (Dibujo a)
     | Encimar (Dibujo a) (Dibujo a)
 
-
--- Composición n-veces de una función con sí misma.
-comp :: (a -> a) -> Int -> a -> a
-comp f n
-    | n < 0 = error "comp: número negativo"
-    | otherwise = foldr (.) id $ replicate n f
 
 -- Rotaciones de múltiplos de 90.
 r180 :: Dibujo a -> Dibujo a
@@ -156,9 +166,6 @@ instance Functor Dibujo where
                 (fmap f . fmap g) (T d0 d1)
     -}
 
-
-mapDib :: (a -> b) -> Dibujo a -> Dibujo b
-mapDib = fmap
 
 -- Ver un a como una figura.
 pureDib :: a -> Dibujo a

@@ -1,4 +1,10 @@
-module Dibujos.Escher where
+module Dibujos.Escher (
+    Escher(..),
+    escher, -- Necesario para EscherAnimado
+    interpEscher,
+    escherConf,
+    white
+) where
 
 import Dibujo
 import FloatingPic

@@ -1,9 +1,19 @@
-module Dibujos.Feo where
+module Dibujos.Feo (
+    Basica,
+    interpBas,
+    testAll,
+    feoConf,
+    white
+) where
+
 import Graphics.Gloss
+    (Picture, blue, red, white, color, line, pictures)
+    
 import qualified Graphics.Gloss.Data.Point.Arithmetic as V
-import Dibujo
-import FloatingPic
-import Interp
+
+import Dibujo (Dibujo(..))
+import FloatingPic (half, Output)
+import Interp (Conf(..))
 
 -- Les ponemos colorcitos para que no sea _tan_ feo
 data Colores = Azul | Rojo

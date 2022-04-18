@@ -1,10 +1,10 @@
 module Main where
 import Interp
-import Dibujos.Escher
+import Dibujos.Feo
 
 
 
 
 
 main :: IO ()
-main = initial $ escherConf 400 400
+main = initial $ feoConf 400 400
