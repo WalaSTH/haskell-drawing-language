@@ -53,3 +53,8 @@ glut32.dll
 
 # Configuración de vscode
 .vscode/
+
+
+# Archivos generados por ghc
+*.hi
+*.o
