@@ -76,3 +76,7 @@ r180 = Rotar . Rotar
 ## Segunda parte: Semántica
 
 # `Interp.grid`
+
+
+
+# Puntos estrella y otros detalles
