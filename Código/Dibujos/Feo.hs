@@ -72,22 +72,24 @@ flipante2 :: (Colores -> a) -> Dibujo a
 flipante2 f = Espejar $ apilados2 f
 
 row :: [Dibujo Basica] -> Dibujo Basica
-row [dib1, dib2] = Juntar 1 1 dib1 dib2
-row dibs | length dibs > 3 = Juntar 1 1 (row $ take (length dibs `div` 2) dibs) (row $ drop (length dibs `div` 2) dibs)
-row _ = error "la cantidad de cuadrantes debe ser potencia de dos"
+row [] = error "row: no puede ser vacío"
+row [d] = d
+row (d:ds) = Juntar (length ds) 1 d (row ds)
+
+column :: [Dibujo Basica] -> Dibujo Basica
+column [] = error "column: no puede ser vacío"
+column [d] = d
+column (d:ds) = Apilar (length ds) 1 d (column ds)
 
 grilla :: [[Dibujo Basica]] -> Dibujo Basica
-grilla [row1, row2] = Apilar 1 1 (row row1) (row row2)
-grilla rows | length rows > 3 = Apilar 1 1 (grilla $ take (length rows `div` 2) rows) (grilla $ drop (length rows `div` 2) rows)
-grilla _ = error "la cantidad de cuadrantes debe ser potencia de dos"
+grilla = column . map row
 
 testAll :: Dibujo Basica
-testAll = grilla
-    [
-    [figRoja Rectangulo, Rot45 $ figRoja Triangulo, Rot45 $ figAzul Rectangulo, Rot45 $ figAzul Cruz],
-    [apilados Rectangulo, apilados2 Rectangulo, juntados Rectangulo, juntados2 Rectangulo],
-    [flipante1 Rectangulo, flipante2 Rectangulo, figRoja Triangulo, Rotar $ figAzul Triangulo],
-    [apilados Cruz, apilados2 Cruz, juntados Cruz, juntados2 Cruz]
+testAll = grilla [
+    [figRoja Rectangulo  , Rot45 $ figRoja Triangulo, Rot45 $ figAzul Rectangulo, Rot45 $ figAzul Cruz     ],
+    [apilados Rectangulo , apilados2 Rectangulo     , juntados Rectangulo       , juntados2 Rectangulo     ],
+    [flipante1 Rectangulo, flipante2 Rectangulo     , figRoja Triangulo         , Rotar $ figAzul Triangulo],
+    [apilados Cruz       , apilados2 Cruz           , juntados Cruz             , juntados2 Cruz           ]
     ]
 
 
