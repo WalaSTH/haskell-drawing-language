@@ -5,8 +5,6 @@ Integrantes:
 • Salguero, Maciel
 • Torres Villegas, Leonardo Luis
 
-
-
 # Modularización
 
 ## Modularización original
@@ -40,7 +38,11 @@ Integrantes:
 
     A varias cosas las movimos de módulo, y también a algunas cosas las cambiamos de nombre para darles un nombre que nos parecía mejor.
 
+    También como parte de la modularización hicimos explícitos todos los imports y exports. Al hacer eso, hubo algunas funciones del enunciado que eliminamos/no exportamos, porque nos pareció que no tenían mucho que ver con el modulo (se pueden ver en los commits viejos). Un ejemplo de eso es la función `comp :: (a -> a) -> Int -> a -> a` del módulo `Dibujo`.
+
     Otra cosa que hicimos fue mover todo lo que es el código a la carpeta `Código`.
+
+    El principal objetivo de nuestra modularización fue acomodoar todo para en el main leer por linea de comandos el nombre del dibujo/animación a graficar. Por eso, hicimos que las cosas relacionadas a cada dibujo/animación estén en el módulo del dibujo/animación, y que en `Main` solo haya una lista de las configuraciones de los dibujos/animaciones.
 
 # Definición del lenguaje
 
@@ -72,7 +74,5 @@ r180 = Rotar . Rotar
     En total se nos pide realizar nueve combinadores, los cuales se encuentran todos incluidos
 
 ## Segunda parte: Semántica
-
-
 
 # `Interp.grid`
