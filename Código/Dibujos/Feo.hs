@@ -6,13 +6,12 @@ module Dibujos.Feo (
     white
 ) where
 
-import Graphics.Gloss
-    (Picture, blue, red, white, color, line, pictures)
-    
+import Graphics.Gloss (Picture, blue, color, line, pictures, red, white)
+
 import qualified Graphics.Gloss.Data.Point.Arithmetic as V
 
 import Dibujo (Dibujo(..))
-import FloatingPic (half, Output)
+import FloatingPic (Output, half)
 import Interp (Conf(..))
 
 -- Les ponemos colorcitos para que no sea _tan_ feo
@@ -34,9 +33,12 @@ colorear Rojo = color red
 --
 -- por ahi deban ajustarlas
 interpBas :: Output Basica
-interpBas (Rectangulo c) x y w = colorear c $ line [x, x V.+ y, x V.+ y V.+ w, x V.+ w, x]
-interpBas (Cruz c) x y w = colorear c $ pictures [line [x, x V.+ y V.+ w], line [x V.+ y, x V.+ w]]
-interpBas (Triangulo c) x y w = colorear c $ line $ map (x V.+) [(0,0), y V.+ half w, w, (0,0)]
+interpBas (Rectangulo c) x y w =
+    colorear c $ line [x, x V.+ y, x V.+ y V.+ w, x V.+ w, x]
+interpBas (Cruz c) x y w =
+    colorear c $ pictures [line [x, x V.+ y V.+ w], line [x V.+ y, x V.+ w]]
+interpBas (Triangulo c) x y w =
+    colorear c $ line $ map (x V.+) [(0,0), y V.+ half w, w, (0,0)]
 
 -- Diferentes tests para ver que estén bien las operaciones
 figRoja :: (Colores -> a) -> Dibujo a
@@ -45,21 +47,23 @@ figRoja f = Básica (f Rojo)
 figAzul :: (Colores -> a) -> Dibujo a
 figAzul f = Básica (f Azul)
 
--- Debería mostrar un rectángulo azul arriba de otro rojo, conteniendo toda la grilla dentro
+-- Debería mostrar un rectángulo azul arriba de otro rojo,
+-- conteniendo toda la grilla dentro
 apilados :: (Colores -> a) -> Dibujo a
 apilados f = Apilar 1 1 (figAzul f) (figRoja f)
 
--- Debería mostrar un rectángulo azul arriba de otro rojo, conteniendo toda la grilla dentro
--- el primero ocupando 3/4 de la grilla
+-- Debería mostrar un rectángulo azul arriba de otro rojo,
+-- conteniendo toda la grilla dentro el primero ocupando 3/4 de la grilla
 apilados2 :: (Colores -> a) -> Dibujo a
 apilados2 f = Apilar 1 3 (figAzul f) (figRoja f)
 
--- Debería mostrar un rectángulo azul a derecha de otro rojo, conteniendo toda la grilla dentro
+-- Debería mostrar un rectángulo azul a derecha de otro rojo,
+-- conteniendo toda la grilla dentro
 juntados :: (Colores -> a) -> Dibujo a
 juntados f = Juntar 1 1 (figAzul f) (figRoja f)
 
--- Debería mostrar un rectángulo azul a derecha de otro rojo, conteniendo toda la grilla dentro
--- el primero ocupando 3/4 de la grilla
+-- Debería mostrar un rectángulo azul a derecha de otro rojo,
+-- conteniendo toda la grilla dentro el primero ocupando 3/4 de la grilla
 juntados2 :: (Colores -> a) -> Dibujo a
 juntados2 f = Juntar 1 3 (figAzul f) (figRoja f)
 

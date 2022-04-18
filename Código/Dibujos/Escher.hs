@@ -6,10 +6,10 @@ module Dibujos.Escher (
     white
 ) where
 
-import Dibujo (r180, r270, (^^^), encimar4, cuarteto, Dibujo(..))
-import FloatingPic (vacía, trian2, FloatingPic)
+import Dibujo (Dibujo(..), cuarteto, encimar4, r180, r270, (^^^))
+import FloatingPic (FloatingPic, trian2, vacía)
 import Interp (Conf(..))
-import Graphics.Gloss ( white )
+import Graphics.Gloss (white)
 
 
 
@@ -20,15 +20,19 @@ data Escher = Blanco | Pez
 esquina :: Int -> Dibujo Escher -> Dibujo Escher
 esquina 0 _ = Básica Blanco
 esquina n p
-    | n > 0 =  cuarteto (esquina (n-1) p) (lado (n-1) p) (Rotar $ lado (n-1) p) (dibujoU p)
-    | otherwise = error "esquina: nivel de detalle negativo"
+    | n > 0 =
+        cuarteto (esquina (n-1) p) (lado (n-1) p) (Rotar $ lado (n-1) p) (dibujoU p)
+    | otherwise =
+        error "esquina: nivel de detalle negativo"
 
 -- Lado con nivel de detalle.
 lado :: Int -> Dibujo Escher -> Dibujo Escher
 lado 0 _ = Básica Blanco
 lado n p
-    | n > 0 = cuarteto (lado (n-1) p) (lado (n-1) p) (Rotar $ dibujoT p) (dibujoT p)
-    | otherwise  = error "lado: nivel de detalle no válido"
+    | n > 0 =
+        cuarteto (lado (n-1) p) (lado (n-1) p) (Rotar $ dibujoT p) (dibujoT p)
+    | otherwise =
+        error "lado: nivel de detalle no válido"
 
 -- El dibujoU.
 dibujoU :: Dibujo Escher -> Dibujo Escher

@@ -2,11 +2,11 @@
 module Main (main) where
 
 import Data.Maybe (fromMaybe)
-import System.Console.GetOpt (getOpt, ArgDescr(..), ArgOrder(..), OptDescr(..))
+import System.Console.GetOpt (ArgDescr(..), ArgOrder(..), OptDescr(..), getOpt)
 import System.Environment (getArgs)
 import Text.Read (readMaybe)
 
-import Interp (initial, Conf(name))
+import Interp (Conf(name), initial)
 import Dibujos.Ejemplo (ejemploConf)
 import Dibujos.Escher (escherConf)
 import Dibujos.EscherAnimado (escherAnimadoConf)
@@ -59,8 +59,8 @@ getSize (_ : fs) = getSize fs
 
 options :: [OptDescr Flag]
 options = [
-    Option ['l'] ["list"] (NoArg List) "Lista de dibujos",
-    Option ['s'] ["size"] (ReqArg Size "SIZE") "Setear tamaño de la ventana"
+        Option ['l'] ["list"] (NoArg List) "Lista de dibujos",
+        Option ['s'] ["size"] (ReqArg Size "SIZE") "Setear tamaño de la ventana"
     ]
 
 

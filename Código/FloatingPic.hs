@@ -7,9 +7,8 @@ module FloatingPic (
     transf
 ) where
     
-import Graphics.Gloss(
-    Vector, Picture, blank, line,
-    pictures, rotate, scale, translate)
+import Graphics.Gloss
+    (Vector, Picture, blank, line, pictures, rotate, scale, translate)
 import Graphics.Gloss.Data.Vector (argV, magV)
 import Graphics.Gloss.Geometry.Angle (radToDeg)
 
@@ -56,15 +55,18 @@ simple :: Picture -> FloatingPic
 simple p _ _ _ = p
 
 fShape :: FloatingPic
-fShape a b c = line . map (a V.+) $ [ zero,uX, p13, p33, p33 V.+ uY , p13 V.+ uY 
-                  , uX V.+ 4 V.* uY ,uX V.+ 5 V.* uY, x4 V.+ y5
-                  , x4 V.+ 6 V.* uY, 6 V.* uY, zero]    
-    where p33 = 3 V.* (uX V.+ uY)
-          p13 = uX V.+ 3 V.* uY
-          x4 = 4 V.* uX
-          y5 = 5 V.* uY
-          uX = (1/6) V.* b
-          uY = (1/6) V.* c
+fShape a b c = line . map (a V.+) $ [
+        zero,uX, p13, p33, p33 V.+ uY , p13 V.+ uY,
+        uX V.+ 4 V.* uY ,uX V.+ 5 V.* uY, x4 V.+ y5,
+        x4 V.+ 6 V.* uY, 6 V.* uY, zero
+    ]
+    where
+        p33 = 3 V.* (uX V.+ uY)
+        p13 = uX V.+ 3 V.* uY
+        x4 = 4 V.* uX
+        y5 = 5 V.* uY
+        uX = (1/6) V.* b
+        uY = (1/6) V.* c
 
 vacía :: FloatingPic
 vacía _ _ _ = blank
@@ -74,8 +76,9 @@ vacía _ _ _ = blank
 -- producimos una figura flotante aplicando las transformaciones
 -- necesarias. Útil si queremos usar figuras que vienen de archivos bmp.
 transf :: (a -> Vector -> Picture) -> a -> Vector -> FloatingPic
-transf f d (xs,ys) a b c  = translate (fst a') (snd a') .
-                                scale (magV b/xs) (magV c/ys) .
-                                rotate ang $ f d (xs,ys)
-    where ang = radToDeg $ argV b
-          a' = a V.+ half (b V.+ c)
+transf f d (xs,ys) a b c =
+    translate ax ay . scale (magV b/xs) (magV c/ys) . rotate ang $
+        f d (xs,ys)
+    where
+        ang = radToDeg $ argV b
+        (ax, ay) = a V.+ half (b V.+ c)

@@ -7,12 +7,12 @@ module Interp (
 ) where
     
 import Graphics.Gloss
-    (Picture, pictures, animate, display, Display(InWindow), Color)
+    (Color, Display(InWindow), Picture, animate, display, pictures)
 
 import qualified Graphics.Gloss.Data.Point.Arithmetic as V
 
-import Dibujo (sem, Dibujo)
-import FloatingPic (half, FloatingPic, Output)
+import Dibujo (Dibujo, sem)
+import FloatingPic (FloatingPic, Output, half)
 
 
 -- Interpretación de un dibujo

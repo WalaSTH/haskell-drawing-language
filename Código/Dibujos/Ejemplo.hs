@@ -6,13 +6,14 @@ module Dibujos.Ejemplo (
     white
 ) where
     
-import Graphics.Gloss ( white )
+import Graphics.Gloss (white)
 
 import Dibujo (Dibujo(Básica))
-import FloatingPic (trian1, Output)
+import FloatingPic (Output, trian1)
 import Interp (Conf(..))
 
 type Basica = ()
+
 ejemplo :: Dibujo Basica
 ejemplo = Básica ()
 
