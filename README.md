@@ -117,3 +117,20 @@ data ConfList = forall a. Elem (Conf a) ConfList | Nil
     Para parsear los argumento de linea de comando usamos el módulo `System.Console.GetOpt`.
 
 ## Función `grilla` de `Feo.hs`
+
+    También simplificamos un poco la definición de la función `grilla` en `Feo.hs`, dejándola así:
+
+```hs
+row :: [Dibujo Basica] -> Dibujo Basica
+row [] = error "row: no puede ser vacío"
+row [d] = d
+row (d:ds) = Juntar (length ds) 1 d (row ds)
+
+column :: [Dibujo Basica] -> Dibujo Basica
+column [] = error "column: no puede ser vacío"
+column [d] = d
+column (d:ds) = Apilar (length ds) 1 d (column ds)
+
+grilla :: [[Dibujo Basica]] -> Dibujo Basica
+grilla = column . map row
+```
