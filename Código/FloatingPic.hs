@@ -28,14 +28,14 @@ half = (0.5 V.*)
 -- Infinitas lineas paralelas horizontales
 -- Desde (x, y) para arriba con un largo de mag
 hlines :: Vector -> Float -> Float -> [Picture]
-hlines (x,y) mag sep = map (hline . (*sep)) [0..]
-    where hline h = line [(x,y+h),(x+mag,y+h)] 
+hlines (x, y) mag sep = map hline [0,sep..]
+    where hline h = line [(x, y + h), (x + mag, y + h)]
 
 -- Una grilla de n líneas, comenzando en v con una separación de sep y
 -- una longitud de l (usamos composición para no aplicar este
 -- argumento)
 grid :: Int -> Vector -> Float -> Float -> Picture
-grid n v sep l = pictures [ls,translate 0 (l*toEnum n) (rotate 90 ls)]
+grid n v sep l = pictures [ls, translate 0 (l*toEnum n) (rotate 90 ls)]
     where ls = pictures $ take (n+1) $ hlines v sep l
 
 -- figuras adaptables comunes

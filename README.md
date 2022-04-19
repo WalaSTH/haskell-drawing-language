@@ -75,28 +75,29 @@ r180 = Rotar . Rotar
 
 ## Segunda parte: Semántica
 
-# `Interp.grid`
-`Interp.grid n v sep l` se encarga de dibujar una grilla de n líneas comenzando
-en v con una separación de sep y una longitud de l.  
-¿Como lo hace?
-Primero debemos entender el funcionamiento de `hlines (x,y) mag sep`.
-Esta función crea infinitas lineas paralelas horizontales desde (x, y) hacia arriba con un largo de mag ¿como? recordemos el código de hlines:
-```hs
-hlines (x,y) mag sep = map (hline . (*sep)) [0..]  
-    where hline h = line [(x,y+h),(x+mag,y+h)]
-```
-Para lograr esto se define la función hline la cual toma un valor y devuelve un segmento (tipo Picture en Gloss). Este segmento tiene la particularidad de estar separada en un valor de (0,h) de la recta horizontal que pasa por (x,y). Luego multiplicamos por sep a cada elemento de `[0..]` y finalmente a cada elemento de la lista resultante le aplicamos la función hline, obteniendo de esta forma una lista de segmentos (tipo Pictures en Gloss)
+# Función `grid`
 
-Entendiendo esto es muy facil ver como grid logra crear la grilla ya que grid lo que se hace es tomar n+1 elementos de esta lista (nótese que la lista la creamos desde el elemento 0) y luego a estos mismos segmentos los rota 90 grados. Finalmente a todos estos segmentos ,los cuales estan en una lista, los transforma en una sola `Picture` usando la función de gloss `pictures`
+    La función `grid` que en nuestra modularización quedó en el módulo `FloatingPic` tiene cierta complejidad, por eso acá hay una explicación de su funcionamiento:
+
+    `grid n v sep l` se encarga de dibujar una grilla de `n` líneas comenzando
+en `v` con una separación de `sep` y una longitud de `l`.
+    Para entender como funciona, rimero debemos entender el funcionamiento de `hlines` (porque `grid` usa a `hlines`).
+    Esta función crea infinitos segmentos paralelos horizontales desde `(x, y)` hacia arriba con un largo de `mag`. A esta función nosotros la modificamos un poco para simplificarla, y le definimos así:
+
+```hs
+hlines :: Vector -> Float -> Float -> [Picture]
+hlines (x, y) mag sep = map hline [0,sep..]
+    where hline h = line [(x, y + h), (x + mag, y + h)]
+```
+
+    Para lograr su objetivo se define la función auxiliar `hline` la cual toma un valor y devuelve un segmento (tipo `Picture` de `Gloss`) que está separado hacia arriba en un valor `h` de la recta horizontal que pasa por `(x,y)`. En `hlines` se plica `hline` a una lista infinita de la forma `[0,sep..]` (o sea, una lista de flotantes separados por `sep`) t con eso se crean infinitas lineas paralelas horizontales con separación `sep` entre ellas.
+
+    Entendiendo esto es muy fácil ver como `grid` logra crear la grilla ya que `grid` lo que se hace es tomar `n+1` elementos de esta lista (o sea, toma los elementos 0, 1, …, n) y luego a estos mismos segmentos los rota 90 grados. Finalmente a todos estos segmentos, los cuales están en una lista, los transforma en una sola `Picture` usando la función de gloss `pictures`.
 
 # Puntos estrella y otros detalles
 
 ## Escher animado
 
-
-
 ## Leer dibujo en los argumentos de ejecución del programa
-
-
 
 ## Función `grilla` de `Feo.hs`
