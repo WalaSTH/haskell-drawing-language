@@ -98,6 +98,10 @@ hlines (x, y) mag sep = map hline [0,sep..]
 
 ## Escher animado
 
+    Una de las cosas extras que hicimos fue hacer una animación de escher, que básicamente consiste en hacer el dibujo de escher con distintos niveles de detalle según el tiempo, para que parezca que se va armando de a poco.
+
+    La animación consume muchos recursos, por lo que para que se vea bien es importante compilar con `-O2`.
+
 ## Leer dibujo en los argumentos de ejecución del programa
 
 ## Función `grilla` de `Feo.hs`
