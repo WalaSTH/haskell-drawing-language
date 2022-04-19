@@ -59,7 +59,7 @@ noneto
         Apilar 1 1 (Juntar 2 1 s (Juntar 1 1 t u)) $
             Juntar 2 1 v (Juntar 1 1 w x)  
 
--- El dibujo de Escher:
+-- El dibujo de Escher con nivel de detalle
 escher :: Int -> Escher -> Dibujo Escher
 escher n f =
     noneto

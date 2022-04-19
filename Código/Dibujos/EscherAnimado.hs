@@ -16,7 +16,13 @@ import Interp (Conf(..))
 
 
 escherAnimado :: Float -> Dibujo Escher
-escherAnimado t = escher (floor (2**(t `mod'` 4)) - 1) Pez
+escherAnimado t = escher n Pez
+    where
+        t' = t `mod'` 4
+            -- Reinicia la animación cada 4 segundos
+        n = floor (2**t') - 1
+            -- El nivel de detalle es exponencial para que la animación crezca linaelmente
+
 
 escherAnimadoConf :: Float -> Float -> Conf Escher
 escherAnimadoConf x y = Anim {
