@@ -77,6 +77,14 @@ r180 = Rotar . Rotar
 
 # `Interp.grid`
 
-
-
 # Puntos estrella y otros detalles
+
+## Escher animado
+
+
+
+## Leer dibujo en los argumentos de ejecución del programa
+
+
+
+## Función `grilla` de `Feo.hs`
