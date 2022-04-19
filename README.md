@@ -104,4 +104,16 @@ hlines (x, y) mag sep = map hline [0,sep..]
 
 ## Leer dibujo en los argumentos de ejecución del programa
 
+    Otra cosa extra que hicimos fue leer el dibujo/animación a graficar como argumento por linea de comandos. Hacer esto tubo bastantes implicaciones. En primer lugar tuvimos que hacer que el `Conf` sea distinto para las animaciones que para los dibujos estáticos, por que en cada caso hacen falta algunas cosas de distinto tipo, tambien, agregamos los campos `name` y `col` para darle un nombre y un color de fondo al dibujo/animación.
+
+    Luego, queríamos hacer una lista que tuviera las configuraciones de los distintos dibujos, pero como `Conf` toma un argumento de tipo, en el haskell normal no se podía, así que tuvimos que usar `ExistentialQuantification` para definir una lista así:
+
+```hs
+data ConfList = forall a. Elem (Conf a) ConfList | Nil
+```
+
+    Y con eso lo pudimos hacer. (Por ser algo extra no damos muchas mas explicaciones).
+
+    Para parsear los argumento de linea de comando usamos el módulo `System.Console.GetOpt`.
+
 ## Función `grilla` de `Feo.hs`
