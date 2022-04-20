@@ -73,6 +73,21 @@ r180 = Rotar . Rotar
     En total se nos pide realizar nueve combinadores, los cuales se encuentran todos incluidos.
 
 ## Segunda parte: Semántica
+En el apartado anterior se describió las reglas de nuestro lenguaje y como combinar unidades básicas de este para formar elementos mas complejos. Si bien esto es una parte fundamental a la hora del desarrollo de un DSL, hasta ahora solo tenemos un conjunto de símbolos que carecen de significado. En esta parte del laboratorio nos encargamos de solucionar esto y así darle un significado geométrico a cada elemento de nuestro lenguaje. Para esto se hace uso de la librería `Gloss`.
+
+La parte principal de este modulo es la función  
+```hs
+interp :: Output a -> Output (Dibujo a)
+``` 
+Lo que hace esta función es tomar un elemento `a` y una función `FloatingPic` (la cual no es mas que una `Picture` que espera parámetros) y devuelve una función. Cuando a esta función resultante le pasamos un `Dibujo a` y una `FloatingPic`, devuelve  un elemento de tipo `Picture` listo para ser graficado. Este representa el `FloatingPic` básico pero con todas las transformaciones hechas en función de `Dibujo a`. Estas transformaciones son las dadas por la cátedra en la consigna y corresponden al significado matemático que representa cada constructor.
+
+Entre otras cosas importantes que tenemos en este múdulo además de interp tenemos:  
+- La definición del tipo `Conf` el cual está dado en record syntax y representa los campos a "setear" para una interpretación.  
+- Definición de la función `interpDis` la cual interpreta los datos de dicha configuración usando la función interp.
+- La función `initial` la cual, a grandes rasgos, se encargara de graficar el elemento de tipo `Picture` que hemos interpretado.
+
+Notar que tambíen tenemos el constructor `Anim` de `Config` y `interpAnim` en este módulo, pero estos seran explicados en la sección de puntos estrellas.
+
 
 # Función `grid`
 
