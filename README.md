@@ -17,7 +17,7 @@ Integrantes:
 | ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `Dibujo`         | Definir la estructura de datos `Dibujo` y sus funciones relacionadas.                                                                                                                                                                                                                                                 |
 | `Interp`         | Definir una interpretación de los `Dibujo`s , es decir, una forma de obtener algo graficable por `gloss` a partir de un `Dibujo`.<br/>Lo mas importante aquí es la función `interp`, con la cuál se puede obtener a partir de un `Dibujo` un `FloatingPic` el cual es el tipo que nos permitira graficar con `gloss`. |
-| `Main`           | Usar gloss para graficar el dibujo de Escher.                                                                                                                                                                                                                                                                          |
+| `Main`           | Usar gloss para graficar el dibujo de Escher.                                                                                                                                                                                                                                                                         |
 | `Basica.Ejemplo` | Un ejemplo básico de un triangulo.                                                                                                                                                                                                                                                                                    |
 | `Basica.Escher`  | La definición de la figura de escher.<br/>Lo mas importante acá es la función `escher`, que es la queda la estructura `Dibujo` para graficar el dibujo de escher.                                                                                                                                                     |
 
@@ -30,9 +30,9 @@ Integrantes:
 | Modulo           | Responsabilidad                                                                                                                                                   |
 | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `Dibujo`         | Definir la estructura de datos `Dibujo` y sus funciones relacionadas.                                                                                             |
-| `FloatingPic`    | Definir el tipo `FloatingPic` y algunos valores y funciones para trabajar con `FloatingPic` y `Graphics.Gloss.Picture`.                                            |
-| `Interp`         | Definir una interpretación de los `Dibujo`s, para poder obtener un`FloatingPic` a partir de un `Dibujo`, y para poder graficar un `Dibujo`.                        |
-| `Main`           | Graficar el dibujo de Escher.                                                                                                                                      |
+| `FloatingPic`    | Definir el tipo `FloatingPic` y algunos valores y funciones para trabajar con `FloatingPic` y `Graphics.Gloss.Picture`.                                           |
+| `Interp`         | Definir una interpretación de los `Dibujo`s, para poder obtener un`FloatingPic` a partir de un `Dibujo`, y para poder graficar un `Dibujo`.                       |
+| `Main`           | Graficar el dibujo de Escher.                                                                                                                                     |
 | `Basica.Ejemplo` | Un ejemplo básico de un triangulo.                                                                                                                                |
 | `Basica.Escher`  | La definición de la figura de escher.<br/>Lo mas importante acá es la función `escher`, que es la queda la estructura `Dibujo` para graficar el dibujo de escher. |
 
@@ -73,21 +73,28 @@ r180 = Rotar . Rotar
     En total se nos pide realizar nueve combinadores, los cuales se encuentran todos incluidos.
 
 ## Segunda parte: Semántica
-En el apartado anterior se describió las reglas de nuestro lenguaje y como combinar unidades básicas de este para formar elementos mas complejos. Si bien esto es una parte fundamental a la hora del desarrollo de un DSL, hasta ahora solo tenemos un conjunto de símbolos que carecen de significado. En esta parte del laboratorio nos encargamos de solucionar esto y así darle un significado geométrico a cada elemento de nuestro lenguaje. Para esto se hace uso de la librería `Gloss`.
 
-La parte principal de este modulo es la función  
+    En el apartado anterior se describió las reglas de nuestro lenguaje y como combinar unidades básicas de este para formar elementos mas complejos. Si bien esto es una parte fundamental a la hora del desarrollo de un DSL, hasta ahora solo tenemos un conjunto de símbolos que carecen de significado. En esta parte del laboratorio nos encargamos de solucionar esto y así darle un significado geométrico a cada elemento de nuestro lenguaje. Usando elementos de la librería `Gloss`.
+
+    La parte principal de este modulo es la función `interp`:
+
 ```hs
 interp :: Output a -> Output (Dibujo a)
-``` 
-Lo que hace esta función es tomar un elemento `a` y una función `FloatingPic` (la cual no es mas que una `Picture` que espera parámetros) y devuelve una función. Cuando a esta función resultante le pasamos un `Dibujo a` y una `FloatingPic`, devuelve  un elemento de tipo `Picture` listo para ser graficado. Este representa el `FloatingPic` básico pero con todas las transformaciones hechas en función de `Dibujo a`. Estas transformaciones son las dadas por la cátedra en la consigna y corresponden al significado matemático que representa cada constructor.
+```
 
-Entre otras cosas importantes que tenemos en este múdulo además de interp tenemos:  
-- La definición del tipo `Conf` el cual está dado en record syntax y representa los campos a "setear" para una interpretación.  
-- Definición de la función `interpDis` la cual interpreta los datos de dicha configuración usando la función interp.
-- La función `initial` la cual, a grandes rasgos, se encargara de graficar el elemento de tipo `Picture` que hemos interpretado.
+    Que por sinónimos de tipos, se le puede dar el tipo así:
 
-Notar que tambíen tenemos el constructor `Anim` de `Config` y `interpAnim` en este módulo, pero estos seran explicados en la sección de puntos estrellas.
+```hs
+interp :: (a -> FloatingPic) -> Dibujo a -> FloatingPic
+```
 
+    Lo que hace esta función es tomar una función que con un elemento básico del dibujo construye `FloatingPic` (que no es mas que un `Picture` de `Gloss` que espera parámetros), un dibujo, y devuelve un `FloatingPic` que representa al dibujo listo para ser graficado.
+
+    Para lograrlo aplica para cada constructor de `Dibujo` las transformaciones dadas en la consigna, que corresponden al significado matemático representado por cada constructor.
+
+    Aclaración sobre función `sem`:
+
+    En el módulo `Dibujo` está definida la función `sem`, la cuál es un pliegue para `Dibujo`, y se puede usar para darla una interpretación a `Dibujo` (o sea, darle semántica). Lo que acá describimos es una interpretación (la del enunciado).
 
 # Función `grid`
 
