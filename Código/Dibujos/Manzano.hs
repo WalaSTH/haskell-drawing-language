@@ -24,15 +24,18 @@ interpForma Blanco = vacía
 
 -- Escalera al abismo (el comienzo de todo)
 escalera :: Int -> Dibujo Forma
-escalera 1 = Básica Efe ^^^ Espejar (Básica Efe) ^^^ r180 (Básica Efe) ^^^ Espejar (r180 (Básica Efe))
-escalera n = Rot45 (escalera (n-1)) ^^^ escalera (n-1)
+escalera 1 =
+    Básica Efe ^^^ Espejar (Básica Efe) ^^^ r180 (Básica Efe) ^^^ Espejar (r180 (Básica Efe))
+escalera n =
+    Rot45 (escalera (n-1)) ^^^ escalera (n-1)
 
 -- Toro
 toro :: Int -> Dibujo Forma
 toro n = escalera n ^^^ Espejar (escalera n)
 
 torosEnfrentados :: Int -> Dibujo Forma
-torosEnfrentados n = escalera n ^^^ Espejar (escalera n) ^^^ r180 (escalera n)  ^^^ Espejar (r180 $ escalera n)
+torosEnfrentados n =
+    escalera n ^^^ Espejar (escalera n) ^^^ r180 (escalera n)  ^^^ Espejar (r180 $ escalera n)
 
 
 toroArena :: Dibujo Forma
@@ -58,9 +61,11 @@ noneto'
             Juntar 2 1 v (Juntar 1 1 w x)
 
 manzano :: Dibujo Forma
-manzano = noneto' hojas    hojas          hojas
-                (Rotar hojas)    tronco         (r270 hojas)
-               (Básica Blanco) tronco (Básica Blanco)
+manzano =
+    noneto'
+        hojas           hojas  hojas
+        (Rotar hojas)   tronco (r270 hojas)
+        (Básica Blanco) tronco (Básica Blanco)
 
 -- Configs
 manzanoConfig :: Float -> Float -> Conf Forma
