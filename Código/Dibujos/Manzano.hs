@@ -14,10 +14,12 @@ interpForma Rectangulo = rectan
 interpForma Efe = fShape 
 interpForma Blanco = vacía
 
+-- Escalera al abismo (el comienzo de todo)
 escalera :: Int -> Dibujo Forma
 escalera 1 = (Básica Efe) ^^^ Espejar (Básica Efe) ^^^ (r180 (Básica Efe)) ^^^ Espejar (r180 (Básica Efe))
 escalera n = (Rot45 $ escalera (n-1)) ^^^ escalera (n-1)
 
+-- Toro
 toro :: Int -> Dibujo Forma
 toro n = (escalera n) ^^^ (Espejar (escalera n)) 
 
@@ -28,7 +30,7 @@ torosEnfrentados n = (escalera n) ^^^ (Espejar (escalera n)) ^^^ (r180 $ escaler
 toroArena :: Dibujo Forma
 toroArena = torosEnfrentados 10 ^^^ (Rotar $ (torosEnfrentados 10))
 
-
+-- Manzano
 hojas :: Dibujo Forma
 hojas = r270 (torosEnfrentados 5 ^^^ (Rotar $ (toro 10)))
 
@@ -46,26 +48,49 @@ noneto'
     Apilar 2 1 (Juntar 2 1 p (Juntar 1 1 q r)) $
         Apilar 1 1 (Juntar 2 1 s (Juntar 1 1 t u)) $
             Juntar 2 1 v (Juntar 1 1 w x)  
--- noneto'
---     p q r
---     s t u
---     v w x = 
---     Apilar 1 1(Juntar 1 1 p (Juntar 1 1 q r)) $
---         Apilar 1 1 (Juntar 1 1 s (Juntar 1 1 t u)) $
---             Juntar 1 1 v (Juntar 1 1 w x)
 
 manzano :: Dibujo Forma
 manzano = noneto' hojas    hojas          hojas
                 (Rotar hojas)    tronco         (r270 hojas)
                (Básica Blanco) tronco (Básica Blanco)
 
-formaConfig :: Float -> Float -> Conf Forma
-formaConfig x y = Dis {
+-- Configs
+manzanoConfig :: Float -> Float -> Conf Forma
+manzanoConfig x y = Dis {
     name = "L",
     basic = interpForma,
-    fig = escalera 10, 
+    fig = manzano, 
     width = x,
     height = y,
     col = white
 }
 
+toroConfig :: Float -> Float -> Conf Forma
+manzanoConfig x y = Dis {
+    name = "L",
+    basic = interpForma,
+    fig = toro 10, 
+    width = x,
+    height = y,
+    col = white
+}
+
+torosEnfrentados :: Float -> Float -> Conf Forma
+manzanoConfig x y = Dis {
+    name = "L",
+    basic = interpForma,
+    fig = torosEnfrentados 10, 
+    width = x,
+    height = y,
+    col = white
+}
+
+toroArena :: Float -> Float -> Conf Forma
+manzanoConfig x y = Dis {
+    name = "L",
+    basic = interpForma,
+    fig = toroArena 10, 
+    width = x,
+    height = y,
+    col = white
+}
