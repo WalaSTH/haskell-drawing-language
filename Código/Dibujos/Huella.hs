@@ -7,10 +7,10 @@ module Dibujos.Huella (
 ) where
     
 
-import Dibujo (Dibujo(..), ///, r180, r270, (^^^))
+import Dibujo (Dibujo(..), r180, r270, (///), (^^^))
 import FloatingPic (FloatingPic, trian2)
-import Interp  (Conf(..))
-import Graphics.Gloss ( white, Rectangle (Rectangle) ) 
+import Interp (Conf(..))
+import Graphics.Gloss (Rectangle(Rectangle), white) 
 
 
 data Forma = Triangulo
