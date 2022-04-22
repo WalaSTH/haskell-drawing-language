@@ -11,6 +11,9 @@ import Dibujos.Ejemplo (ejemploConf)
 import Dibujos.Escher (escherConf)
 import Dibujos.EscherAnimado (escherAnimadoConf)
 import Dibujos.Feo (feoConf)
+import Dibujos.Huella (huellaConfig)
+import Dibujos.Manzano
+    (manzanoConfig, toroConfig, torosEnfrentadosConfig, toroArenaConfig, escaleraConfig)
 
 
 -- Tipo para tener una lista de las configuraciones de todos los dibujos
@@ -25,6 +28,12 @@ configs x y =
     escherConf x y `Elem`
     feoConf x y `Elem`
     escherAnimadoConf x y `Elem`
+    huellaConfig x y `Elem`
+    manzanoConfig x y `Elem`
+    toroConfig x y `Elem`
+    torosEnfrentadosConfig x y `Elem`
+    toroArenaConfig x y `Elem`
+    escaleraConfig x y `Elem`
     Nil
 
 
