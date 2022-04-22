@@ -1,18 +1,17 @@
 module Dibujos.Huella (
     Forma(..),
-    huella, -- Necesario para EscherAnimado
+    huella,
     interpForma,
     huellaConfig,
     white
 ) where
     
 
-import Dibujo 
-import FloatingPic
-import Interp  
+import Dibujo (Dibujo(..), ///, r180, r270, (^^^))
+import FloatingPic (FloatingPic, trian2)
+import Interp  (Conf(..))
 import Graphics.Gloss ( white, Rectangle (Rectangle) ) 
-import Dibujo (Dibujo)
-import Interp (interp)
+
 
 data Forma = Triangulo
 

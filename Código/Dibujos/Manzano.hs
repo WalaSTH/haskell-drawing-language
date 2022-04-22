@@ -1,11 +1,19 @@
-module Dibujos.Qcyo where
+module Dibujos.Manzano (
+    Forma(..),
+    manzano,
+    interpForma,
+    toroConfig,
+    torosEnfrentadosConfig,
+    toroArenaConfig,
+    escaleraConfig,
+    manzanoConfig,
+    white
+) where
 
-import Dibujo 
-import FloatingPic
-import Interp 
+import Dibujo (Dibujo(..), r180, r270, (^^^))
+import FloatingPic (FloatingPic, rectan, fShape, vacía)
+import Interp (Conf(..))
 import Graphics.Gloss ( white, Rectangle (Rectangle) ) 
-import Dibujo (Dibujo)
-import Interp (interp)
 
 data Forma = Rectangulo | Efe | Blanco
 
@@ -57,7 +65,7 @@ manzano = noneto' hojas    hojas          hojas
 -- Configs
 manzanoConfig :: Float -> Float -> Conf Forma
 manzanoConfig x y = Dis {
-    name = "L",
+    name = "Manzano",
     basic = interpForma,
     fig = manzano, 
     width = x,
@@ -67,7 +75,7 @@ manzanoConfig x y = Dis {
 
 toroConfig :: Float -> Float -> Conf Forma
 toroConfig x y = Dis {
-    name = "L",
+    name = "Toro",
     basic = interpForma,
     fig = toro 10, 
     width = x,
@@ -77,7 +85,7 @@ toroConfig x y = Dis {
 
 torosEnfrentadosConfig :: Float -> Float -> Conf Forma
 torosEnfrentadosConfig x y = Dis {
-    name = "L",
+    name = "TorosEnfrentados",
     basic = interpForma,
     fig = torosEnfrentados 10, 
     width = x,
@@ -87,7 +95,7 @@ torosEnfrentadosConfig x y = Dis {
 
 toroArenaConfig :: Float -> Float -> Conf Forma
 toroArenaConfig x y = Dis {
-    name = "L",
+    name = "ToroArena",
     basic = interpForma,
     fig = toroArena, 
     width = x,
@@ -97,7 +105,7 @@ toroArenaConfig x y = Dis {
 
 escaleraConfig :: Float -> Float -> Conf Forma
 escaleraConfig x y = Dis {
-    name = "L",
+    name = "Escalera",
     basic = interpForma,
     fig = escalera 10, 
     width = x,
