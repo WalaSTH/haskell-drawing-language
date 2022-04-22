@@ -122,13 +122,24 @@ hlines (x, y) mag sep = map hline [0,sep..]
 Ademas de la figura de escher que pedia la consigna, aprovechamos el DSL para graficar otras figuras. A continuación se lista las figuras dibujadas:  
 
 - Huellas
-- Manzano
+- Escalera
 - Toro
 - Toros enfrentado
-- Escalera
 - Toro Arena 
+- Manzano
 
-Notar que las últimas 4 se encuentran dentro del archivo `Manzano.hs`
+Notar que las últimas 4 se encuentran dentro del archivo `Manzano.hs`.
+
+A continuación, una breve explicacion de los dibujos para los puntos estrella.
+
+## Huellas
+Nacida originalmente como un intento de replicar la curva de Dragón, Huellas aparece como una sorprendente versión del Dragón condicionada por el dibujo de Escher. Y es que en este laboratorio, al estar hecho para hacer el dibujo de Escher, la forma en la que se interpretan los dibujos (y en concreto, Rotar 45) funciona muy bien para dicho dibujo, pero no era muy útil para esta tarea (pues Rotar 45 podría bien llamarse, Rotar 45 y elevar y achicar). Sin embargo, al definir el dibujo según la definición de curva de Dragón, y utilizando triángulos para las básicas, unas interesantes huellas de Dragón aparecieron en pantalla, dando origen al dibujo Huella.
+
+## Escaleras, Toros y Manzanos
+Lo que primero fue concebido utilizando figuras "F" a las que se juntaron para crear escalones de una escalera estilo caracol, al ser combinado con un espejo de si mismo dio origen a lo que para nosotros parece un toro.
+Así entonces, el módulo Manzano además de tener el dibujo de un toro contiene variaciones del mismo, que incluyen Toros enfrentados y Toro Arena, esta última siendo un fractal que se consigue al combinar al toro en las cuatro rotaciones.
+Finalmente, el fractal de Toro Arena da lugar a un posible Árbol. Utilizando la idea trabajada para implementar Escher, usamos noneto para combinar distintos dibujos en un dibujo más grande, rodeando un tronco hecho con un rectángulo con rotaciones de Toro Arena, dando origen al Manzano.
+
 
 ## Escher animado
 
