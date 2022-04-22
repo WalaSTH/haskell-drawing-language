@@ -117,6 +117,19 @@ hlines (x, y) mag sep = map hline [0,sep..]
 
 # Puntos estrella y otros detalles
 
+## Imagenes extras  
+
+Ademas de la figura de escher que pedia la consigna, aprovechamos el DSL para graficar otras figuras. A continuación se lista las figuras dibujadas:  
+
+- Huellas
+- Manzano
+- Toro
+- Toros enfrentado
+- Escalera
+- Toro Arena 
+
+Notar que las últimas 4 se encuentran dentro del archivo `Manzano.hs`
+
 ## Escher animado
 
     Una de las cosas extras que hicimos fue hacer una animación de escher, que básicamente consiste en hacer el dibujo de escher con distintos niveles de detalle según el tiempo, para que parezca que se va armando de a poco.
