@@ -1,4 +1,11 @@
-module Dibujos.Huella where
+module Dibujos.Huella (
+    Forma(..),
+    huella, -- Necesario para EscherAnimado
+    interpForma,
+    huellaConfig,
+    white
+) where
+    
 
 import Dibujo 
 import FloatingPic
@@ -12,15 +19,18 @@ data Forma = Triangulo
 interpForma :: Forma -> FloatingPic
 interpForma Triangulo = trian2
 
-huella :: Int -> Dibujo Forma
-huella 1 = r180 (Básica Triangulo) 
-huella n =  (r270 (huella (n-1) ))  /// (Rot45( r180 (huella (n-1))))
+huella' :: Int -> Dibujo Forma
+huella' 1 = r180 (Básica Triangulo) 
+huella' n =  r270 (huella' (n-1)) /// Rot45 (r180 (huella' (n-1)))
+
+huella :: Dibujo Forma 
+huella = huella' 15
 
 huellaConfig :: Float -> Float -> Conf Forma
 huellaConfig x y = Dis {
-    name = "L",
+    name = "Huella",
     basic = interpForma,
-    fig = escalera 10, 
+    fig = huella, 
     width = x,
     height = y,
     col = white
