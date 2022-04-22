@@ -13,7 +13,7 @@ module Dibujos.Manzano (
 import Dibujo (Dibujo(..), r180, r270, (^^^))
 import FloatingPic (FloatingPic, rectan, fShape, vacía)
 import Interp (Conf(..))
-import Graphics.Gloss ( white, Rectangle (Rectangle) ) 
+import Graphics.Gloss (Rectangle(Rectangle), white) 
 
 data Forma = Rectangulo | Efe | Blanco
 
