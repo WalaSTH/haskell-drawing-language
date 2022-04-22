@@ -66,7 +66,7 @@ manzanoConfig x y = Dis {
 }
 
 toroConfig :: Float -> Float -> Conf Forma
-manzanoConfig x y = Dis {
+toroConfig x y = Dis {
     name = "L",
     basic = interpForma,
     fig = toro 10, 
@@ -75,8 +75,8 @@ manzanoConfig x y = Dis {
     col = white
 }
 
-torosEnfrentados :: Float -> Float -> Conf Forma
-manzanoConfig x y = Dis {
+torosEnfrentadosConfig :: Float -> Float -> Conf Forma
+torosEnfrentadosConfig x y = Dis {
     name = "L",
     basic = interpForma,
     fig = torosEnfrentados 10, 
@@ -85,12 +85,23 @@ manzanoConfig x y = Dis {
     col = white
 }
 
-toroArena :: Float -> Float -> Conf Forma
-manzanoConfig x y = Dis {
+toroArenaConfig :: Float -> Float -> Conf Forma
+toroArenaConfig x y = Dis {
     name = "L",
     basic = interpForma,
-    fig = toroArena 10, 
+    fig = toroArena, 
+    width = x,
+    height = y,
+    col = white
+}  
+
+escaleraConfig :: Float -> Float -> Conf Forma
+escaleraConfig x y = Dis {
+    name = "L",
+    basic = interpForma,
+    fig = escalera 10, 
     width = x,
     height = y,
     col = white
 }
+
